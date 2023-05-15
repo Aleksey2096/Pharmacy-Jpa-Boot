@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.pharmacistAddProducerPage}"></title>
+    <link rel="stylesheet" th:href="@{/css/shortFormStyle.css}">
+</head>
+<body>
+
+<div class="login-box">
+    <h2 data-th-text="#{text.addProducer}"></h2>
+
+    <form id="mainForm" th:method="POST" th:action="@{/pharmacist/producers}" th:object="${producer}">
+
+        <input type="hidden" name="previousRequestLink" th:value="${previousRequestLink}">
+
+        <div class="user-box">
+            <input id="companyNameInput" type="text" name="companyName" th:field="*{companyName}">
+            <label for="companyNameInput">
+                <span data-th-text="#{text.enterCompanyName}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('companyName')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <select id="countrySelect" name="country" th:field="*{country}">
+                <option th:each="countryOpt : ${T(by.academy.pharmacy2.entity.Country).values()}"
+                        th:value="${countryOpt}" th:text="${countryOpt.name}"></option>
+            </select>
+            <label for="countrySelect" data-th-text="#{text.selectCountry}"></label>
+        </div>
+        <div class="user-box">
+            <input id="creationDateInput" type="date" name="creationDate" th:field="*{creationDate}">
+            <label for="creationDateInput">
+                <span data-th-text="#{text.enterCreationDate}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('creationDate')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+
+
+        <a class="leftButton" href="#" onclick="this.closest('form').submit();" data-th-text="#{text.save}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+        <a class="rightButton" th:href="@{${previousRequestLink}}" data-th-text="#{text.cancel}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+
+
+    </form>
+
+</div>
+
+</body>
+</html>

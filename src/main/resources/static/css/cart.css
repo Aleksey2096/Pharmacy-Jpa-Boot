@@ -1,0 +1,224 @@
+.cartRow {
+    display: flex;
+}
+
+.columnCart {
+    flex: 60%;
+}
+
+.columnOrder {
+    flex: 40%;
+}
+
+
+/* Cart */
+
+
+.medicineAmountInput {
+    text-align: center;
+    margin: 0 2px;
+}
+
+.minusButton, .plusButton, .deleteButton, .deleteOrderButton {
+    border: none;
+    background-color: transparent;
+}
+
+.minusSign, .plusSign, .deleteSign, .deleteOrderSign {
+    height: 15px;
+    stroke: var(--black);
+}
+
+.deleteSign, .deleteOrderSign {
+    height: 18px;
+}
+
+.minusSign:hover, .plusSign:hover, .deleteSign:hover, .deleteOrderSign:hover {
+    stroke: var(--red);
+}
+
+.cartCaption, #emptyOrdersContent, #emptyCartsContent {
+    font-size: 2rem;
+}
+
+.cartCaption {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cartCaption span {
+    padding: 0 10px;
+}
+
+.addToOrderSign:hover > g[style] {
+    fill: var(--red) !important;
+}
+
+.addToOrderButton {
+    border: none;
+    background-color: inherit;
+}
+
+#tableOrdersDiv, #emptyCartsContent {
+    display: none;
+}
+
+div.col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.responsive-table li {
+    padding: 15px 10px;
+    margin-bottom: 15px;
+}
+
+
+/*  Checkout  */
+
+
+h4.cart {
+    margin: 10px 0;
+}
+
+form.cart {
+    padding: 16px;
+    width: 320px;
+    margin: 0 auto;
+}
+
+.segment {
+    text-align: center;
+}
+
+button.red, input.cart {
+    border: 0;
+    outline: 0;
+    padding: 12px;
+    background-color: #EBECF0;
+    text-shadow: 1px 1px 0 #FFF;
+}
+
+label.cart {
+    display: block;
+    margin-bottom: 24px;
+}
+
+input.cart {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    margin-right: 8px;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+input.cart:focus {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+}
+
+button.red {
+    color: #61677C;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button.red:hover {
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+}
+
+button.red:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+}
+
+button.red .icon {
+    margin-right: 8px;
+}
+
+button.red {
+    display: block;
+    width: 100%;
+    color: #AE1100;
+}
+
+
+.totalPrice {
+    margin-bottom: 35px;
+}
+
+input.error {
+    border: 1px solid red;
+}
+
+span.errorSpan {
+    display: block;
+    color: red;
+}
+
+
+.responsive-table.carts .col-1 {
+    flex-basis: 6%;
+}
+
+.responsive-table.carts .col-2 {
+    flex-basis: 6%;
+}
+
+.responsive-table.carts .col-3 {
+    flex-basis: 20%;
+}
+
+.responsive-table.carts .col-4 {
+    flex-basis: 9%;
+}
+
+.responsive-table.carts .col-5 {
+    flex-basis: 17%;
+}
+
+.responsive-table.carts .col-6 {
+    flex-basis: 8%;
+}
+
+.responsive-table.carts .col-7 {
+    flex-basis: 18%;
+}
+
+.responsive-table.carts .col-8 {
+    flex-basis: 8%;
+}
+
+.responsive-table.carts .col-9 {
+    flex-basis: 8%;
+}
+
+
+.responsive-table.cartOrders .col-1 {
+    flex-basis: 8%;
+}
+
+.responsive-table.cartOrders .col-2 {
+    flex-basis: 10%;
+}
+
+.responsive-table.cartOrders .col-3 {
+    flex-basis: 32%;
+}
+
+.responsive-table.cartOrders .col-4 {
+    flex-basis: 20%;
+}
+
+.responsive-table.cartOrders .col-5 {
+    flex-basis: 20%;
+}
+
+.responsive-table.cartOrders .col-6 {
+    flex-basis: 10%;
+}

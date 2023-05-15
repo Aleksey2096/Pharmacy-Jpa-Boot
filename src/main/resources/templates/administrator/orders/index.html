@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.administratorOrdersPage}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/mainTable.css}">
+    <link rel="stylesheet" th:href="@{/css/data-pagination.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+</head>
+<body>
+<header th:replace="~{common :: header}"></header>
+<nav th:replace="~{common :: adminNavbar}"></nav>
+
+
+<div class="main">
+
+
+    <div class="mainTable">
+        <div class="container">
+            <ul class="responsive-table orders">
+                <li class="table-search">
+                    <form method="get" th:action="@{/administrator/orders/page/1}">
+                        <input type="hidden" name="orderField" th:value="${orderField}">
+                        <input type="hidden" name="orderType" th:value="${orderType}">
+                        <input type="hidden" name="recordsPerPage" th:value="${pagination.recordsPerPage}">
+                        <input class="searchInput" type="text" name="searchValue">
+                        <button class="searchButton" type="submit">
+                            <span data-th-text="#{text.search}"></span>
+                        </button>
+                    </form>
+                </li>
+                <li class="table-header">
+                    <div class="col col-1">&#8470;</div>
+                    <div class="col col-2">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='id', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.id}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='id', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-3">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='localDateTime', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.dateTime}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='localDateTime', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-4">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='user', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.healthCareCardNumber}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='user', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-5">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='medicineProduct', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.medicineProductId}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='medicineProduct', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-6">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='amount', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.amount}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='amount', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-7">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='price', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.price}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='price', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-8">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='paymentCardNumber', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.paymentCardNumber}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='paymentCardNumber', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-9">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='contactPhone', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.contactPhone}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='contactPhone', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-10">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='deliveryAddress', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.deliveryAddress}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/administrator/orders/page/{currentPage}(currentPage=${pagination.currentPage}, orderField='deliveryAddress', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                </li>
+                <li class="table-row" th:each="elem, status : ${pagination.records}"
+                    th:with="previousRecordsNum=${(pagination.currentPage - 1) * pagination.recordsPerPage}">
+                    <div class="col col-1"><span th:text="${previousRecordsNum+status.count}"></span></div>
+                    <div class="col col-2"><span th:text="${elem.id}"></span></div>
+                    <div class="col col-3"><span th:text="${elem.localDateTime}"></span></div>
+                    <div class="col col-4"><span th:text="${elem.user.healthCareCardNumber}"></span></div>
+                    <div class="col col-5"><span th:text="${elem.medicineProduct.id}"></span></div>
+                    <div class="col col-6"><span th:text="${elem.amount}"></span></div>
+                    <div class="col col-7"><span th:text="${elem.price}"></span></div>
+                    <div class="col col-8"><span th:text="${elem.paymentCardNumber}"></span></div>
+                    <div class="col col-9"><span th:text="${elem.contactPhone}"></span></div>
+                    <div class="col col-10"><span th:text="${elem.deliveryAddress}"></span></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <th:block th:if="${pagination.pagesNum > 0}">
+        <nav th:replace="~{common :: pagination(${request.contextPath}+'/administrator/orders')}"></nav>
+    </th:block>
+    <th:block th:if="${pagination.pagesNum == 0}">
+        <h3 data-th-text="#{text.negativeSearchResult}"></h3>
+        <h4 data-th-text="#{text.suggestions}"></h4>
+        <h4 data-th-text="#{text.searchSuggestion1}"></h4>
+        <h4 data-th-text="#{text.searchSuggestion2}"></h4>
+        <h4 data-th-text="#{text.searchSuggestion3}"></h4>
+    </th:block>
+
+
+</div>
+<footer th:replace="~{common :: footer}"></footer>
+</body>
+</html>

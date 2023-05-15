@@ -1,0 +1,56 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #e5e4e2;
+    color: #000000;
+    font-family: "Montserrat", sans-serif;
+    overflow: hidden;
+}
+
+.center {
+    height: 400px;
+    width: 1000px;
+    position: absolute;
+    top: calc(50% - 200px);
+    left: calc(50% - 500px);
+    text-align: center;
+}
+
+h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 16rem;
+}
+
+h3 {
+    padding-bottom: 6.5%;
+}
+
+p {
+    font-size: 2.5rem;
+}
+
+p.single {
+    padding-bottom: 12.5%;
+}
+
+a {
+    font-weight: 300;
+    font-size: 1rem;
+    border: 1px solid #000000;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+a:hover {
+    background: #000000;
+    color: #e5e4e2;
+}

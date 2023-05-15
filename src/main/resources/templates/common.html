@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<header class="header" th:fragment="header">
+    <div class="languageTag" th:switch="#{text.locale}" th:with="queryString=${request.queryString} ?: '' ">
+
+
+        <div class="select-box" th:case="'de_DE'">
+            <div class="select-box__current" tabindex="1">
+                <div class="select-box__value">
+                    <input class="select-box__input" type="radio" checked="checked"/>
+                    <p class="select-box__input-text">DE</p>
+                </div>
+                <img class="select-box__icon" th:src="@{/img/img_295694.svg}" alt="Arrow Icon" aria-hidden="true"/>
+            </div>
+            <ul class="select-box__list">
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=es_ES&'+queryString}'|">Español</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=en_US&'+queryString}'|">English</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=ru_RU&'+queryString}'|">Русский</label>
+                </li>
+            </ul>
+        </div>
+        <div class="select-box" th:case="'es_ES'">
+            <div class="select-box__current" tabindex="1">
+                <div class="select-box__value">
+                    <input class="select-box__input" type="radio" checked="checked"/>
+                    <p class="select-box__input-text">ES</p>
+                </div>
+                <img class="select-box__icon" th:src="@{/img/img_295694.svg}" alt="Arrow Icon" aria-hidden="true"/>
+            </div>
+            <ul class="select-box__list">
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=de_DE&'+queryString}'|">Deutsch</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=en_US&'+queryString}'|">English</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=ru_RU&'+queryString}'|">Русский</label>
+                </li>
+            </ul>
+        </div>
+        <div class="select-box" th:case="'ru_RU'">
+            <div class="select-box__current" tabindex="1">
+                <div class="select-box__value">
+                    <input class="select-box__input" type="radio" checked="checked"/>
+                    <p class="select-box__input-text">RU</p>
+                </div>
+                <img class="select-box__icon" th:src="@{/img/img_295694.svg}" alt="Arrow Icon" aria-hidden="true"/>
+            </div>
+            <ul class="select-box__list">
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=de_DE&'+queryString}'|">Deutsch</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=es_ES&'+queryString}'|">Español</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=en_US&'+queryString}'|">English</label>
+                </li>
+            </ul>
+        </div>
+        <div class="select-box" th:case="*">
+            <div class="select-box__current" tabindex="1">
+                <div class="select-box__value">
+                    <input class="select-box__input" type="radio" checked="checked"/>
+                    <p class="select-box__input-text">EN</p>
+                </div>
+                <img class="select-box__icon" th:src="@{/img/img_295694.svg}" alt="Arrow Icon" aria-hidden="true"/>
+            </div>
+            <ul class="select-box__list">
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=de_DE&'+queryString}'|">Deutsch</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=es_ES&'+queryString}'|">Español</label>
+                </li>
+                <li>
+                    <label class="select-box__option" aria-hidden="aria-hidden"
+                           th:attr="onclick=|document.location='${request.requestURI+'?locale=ru_RU&'+queryString}'|">Русский</label>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+
+    <div class="logo"><a th:href="@{/}"><span class="companyName">Huge Pharma</span></a></div>
+
+
+    <div class="loginTag">
+        <div sec:authorize="isAnonymous()">
+            <span data-th-text="#{text.welcome}"></span>&nbsp;<span data-th-text="#{text.guest}"></span>&nbsp;
+            <form class="loginForm" method="GET" th:action="@{/auth/login}">
+                <!-- 	            <input type="hidden" name="previousRequestLink" -->
+                <!-- 	                   value="/dispatcher?${pageContext.request.queryString}"/> -->
+                <button class="loginButton" type="submit"><span data-th-text="#{text.login}"></span></button>
+            </form>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <span class="account"
+                  th:text="${#authentication.principal.userDTO.personalInfo.personalAccount + '&#36;'}"></span>
+            <span data-th-text="#{text.welcome}"></span>&nbsp;<span sec:authentication="name"></span>
+            <img class="avatar" th:src="@{${#authentication.principal.userDTO.avatarImagePath}}">
+            <form class="loginForm" method="POST" th:action="@{/logout}">
+                <button class="loginButton" type="submit"><span data-th-text="#{text.logout}"></span></button>
+            </form>
+        </div>
+    </div>
+</header>
+
+
+<nav role="navigation" class="primary-navigation" th:fragment="navbar" sec:authorize="isAuthenticated()">
+    <hr class="hr-nav">
+    <ul class="ul-nav ul-nav-main">
+        <li th:attr="class=${#strings.contains(request.requestURI,'medicine') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/client/medicines}" class="a-nav"><span data-th-text="#{text.main}"></span></a></li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'cart') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/client/cart}" class="a-nav"><span data-th-text="#{text.cart}"></span></a></li>
+        <li class="li-nav"><a
+                th:href="@{/client/users/edit(previousRequestLink=${request.servletPath+'?'+request.queryString})}"
+                class="a-nav"><span data-th-text="#{text.myAccount}"></span></a>
+        </li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'prescriptions') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/client/prescriptions}" class="a-nav"><span data-th-text="#{text.prescriptions}"></span></a>
+        </li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'prescriptionRequests') ? 'li-nav disabled' : 'li-nav'}">
+            <a th:href="@{/client/prescriptionRequests}" class="a-nav"><span
+                    data-th-text="#{text.prescriptionRequests}"></span></a></li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'orders') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/client/orders}" class="a-nav"><span data-th-text="#{text.purchaseHistory}"></span></a></li>
+        <li sec:authorize="hasRole('PHARMACIST')" class="li-nav"><a
+                th:href="@{/pharmacist/producers}"
+                class="a-nav special"><span data-th-text="#{text.pharmacistMenu}"></span></a></li>
+        <li sec:authorize="hasRole('ADMINISTRATOR')" class="li-nav"><a
+                th:href="@{/administrator/users}"
+                class="a-nav special"><span data-th-text="#{text.administratorMenu}"></span></a></li>
+    </ul>
+</nav>
+
+
+<nav role="navigation" class="primary-navigation" th:fragment="adminNavbar">
+    <hr class="hr-nav">
+    <ul class="ul-nav ul-nav-main">
+        <li th:attr="class=${#strings.contains(request.requestURI,'users') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/administrator/users}" class="a-nav"><span data-th-text="#{text.users}"></span></a></li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'orders') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/administrator/orders}" class="a-nav"><span data-th-text="#{text.orders}"></span></a></li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'prescriptionRequests') ? 'li-nav disabled' : 'li-nav'}">
+            <a th:href="@{/administrator/prescriptionRequests}" class="a-nav"><span
+                    data-th-text="#{text.prescriptionRequests}"></span></a></li>
+    </ul>
+</nav>
+
+
+<nav role="navigation" class="primary-navigation" th:fragment="pharmacistNavbar">
+    <hr class="hr-nav">
+    <ul class="ul-nav ul-nav-main">
+        <li th:attr="class=${#strings.contains(request.requestURI,'producers') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/pharmacist/producers}" class="a-nav"><span data-th-text="#{text.producers}"></span></a></li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'medicines') ? 'li-nav disabled' : 'li-nav'}"><a
+                th:href="@{/pharmacist/medicines}" class="a-nav"><span data-th-text="#{text.medicines}"></span></a></li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'medicineProducts') ? 'li-nav disabled' : 'li-nav'}">
+            <a th:href="@{/pharmacist/medicineProducts}" class="a-nav"><span
+                    data-th-text="#{text.medicineProducts}"></span></a></li>
+        <li th:attr="class=${#strings.contains(request.requestURI,'prescriptionRequests') ? 'li-nav disabled' : 'li-nav'}">
+            <a th:href="@{/pharmacist/prescriptionRequests}" class="a-nav"><span
+                    data-th-text="#{text.processPrescriptionRequests}"></span></a></li>
+    </ul>
+</nav>
+
+
+<footer class="footer" th:fragment="footer">
+
+    <div class="row">
+        <ul>
+            <li><a href="#" data-th-text="#{footer.aboutUs}"></a></li>
+            <li>|</li>
+            <li data-th-text="#{footer.JoinUs}"></li>
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="row">© 1996-<span data-th-text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>, Huge Pharma <span
+            data-th-text="#{footer.copyright}"></span>.
+    </div>
+
+    <div class="row">
+        <a href="#" data-th-text="#{footer.backToTop}"></a>
+    </div>
+
+</footer>
+
+
+<nav data-pagination th:fragment="pagination(controllerPath)"
+     th:with="permanentString=${'&orderField=' + orderField + '&orderType=' + orderType + '&searchValue=' + searchValue}, currentPage=${pagination.currentPage}, recordsPerPage=${pagination.recordsPerPage}, pagesNum=${pagination.pagesNum}">
+
+    <a class="chevron"
+       th:href="@{{path}/page/{n}(path=${controllerPath},n=${currentPage-1},recordsPerPage=${recordsPerPage})} + ${permanentString}"
+       th:disabled="${currentPage eq 1}">
+        <svg class="data-pagination" fill="#000000" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 407.436 407.436" xml:space="preserve" transform="matrix(-1, 0, 0, 1, 0, 0)"><polygon points="112.814,0 91.566,21.178 273.512,203.718 91.566,386.258 112.814,407.436 315.869,203.718 " />
+            </g></svg>
+    </a>
+
+    <ul th:if="${pagesNum lt 10}">
+        <li th:each="i: ${#numbers.sequence(1, pagesNum)}" th:classappend="${currentPage eq i} ? 'current' "><a
+                th:href="@{{path}/page/{n}(path=${controllerPath},n=${i},recordsPerPage=${recordsPerPage})} + ${permanentString}"><span
+                th:text="${i}"></span></a>
+    </ul>
+    <ul th:if="${pagesNum ge 10 and currentPage le 4}">
+        <li th:each="i: ${#numbers.sequence(1, 7)}" th:classappend="${currentPage eq i} ? 'current' "><a
+                th:href="@{{path}/page/{n}(path=${controllerPath},n=${i},recordsPerPage=${recordsPerPage})} + ${permanentString}"><span
+                th:text="${i}"></span></a>
+        <li class="dots"><a href="#">...</a>
+        <li>
+            <a th:href="@{{path}/page/{n}(path=${controllerPath},n=${pagesNum},recordsPerPage=${recordsPerPage})} + ${permanentString}"><span
+                    th:text="${pagesNum}"></span></a>
+    </ul>
+    <ul th:if="${pagesNum ge 10 and pagesNum - currentPage lt 4}">
+        <li><a th:href="@{{path}/page/1(path=${controllerPath},recordsPerPage=${recordsPerPage})} + ${permanentString}">1</a>
+        <li class="dots"><a href="#">...</a>
+        <li th:each="i: ${#numbers.sequence(pagesNum-6, pagesNum)}" th:classappend="${currentPage eq i} ? 'current' "><a
+                th:href="@{{path}/page/{n}(path=${controllerPath},n=${i},recordsPerPage=${recordsPerPage})} + ${permanentString}"><span
+                th:text="${i}"></span></a>
+    </ul>
+    <ul th:if="${pagesNum ge 10 and pagesNum - currentPage ge 4 and currentPage gt 4}">
+        <li><a th:href="@{{path}/page/1(path=${controllerPath},recordsPerPage=${recordsPerPage})} + ${permanentString}">1</a>
+        <li class="dots"><a href="#">...</a>
+        <li th:each="i: ${#numbers.sequence(currentPage-2, currentPage+2)}"
+            th:classappend="${currentPage eq i} ? 'current' "><a
+                th:href="@{{path}/page/{n}(path=${controllerPath},n=${i},recordsPerPage=${recordsPerPage})} + ${permanentString}"><span
+                th:text="${i}"></span></a>
+        <li class="dots"><a href="#">...</a>
+        <li>
+            <a th:href="@{{path}/page/{n}(path=${controllerPath},n=${pagesNum},recordsPerPage=${recordsPerPage})} + ${permanentString}"><span
+                    th:text="${pagesNum}"></span></a>
+    </ul>
+
+    <a class="chevron"
+       th:href="@{{path}/page/{n}(path=${controllerPath},n=${currentPage+1},recordsPerPage=${recordsPerPage})} + ${permanentString}"
+       th:disabled="${currentPage eq pagesNum}">
+        <svg class="data-pagination" fill="#000000" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 407.436 407.436" xml:space="preserve"><polygon points="112.814,0 91.566,21.178 273.512,203.718 91.566,386.258 112.814,407.436 315.869,203.718 " /></svg>
+    </a>
+
+    <label for="recordsPerPage" class="recordsPerPage">
+        <span data-th-text="#{text.recordsPerPage}"></span>
+        <select id="recordsPerPage" class="recordsPerPage"
+                onchange="document.location=this.options[this.selectedIndex].value">
+            <option th:each="recordsPerPageItem: ${#numbers.sequence(5,20,5)}"
+                    th:hidden="${recordsPerPageItem eq recordsPerPage}"
+                    th:selected="${recordsPerPageItem eq recordsPerPage}"
+                    th:value="@{{path}/page/1(path=${controllerPath},recordsPerPage=${recordsPerPageItem})} + ${permanentString}"
+                    th:text="${recordsPerPageItem}"></option>
+        </select>
+    </label>
+</nav>
+
+
+</body>
+</html>

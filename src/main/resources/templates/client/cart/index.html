@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title data-th-text="#{page.clientCartPage}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/mainTable.css}">
+    <link rel="stylesheet" th:href="@{/css/data-pagination.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+</head>
+<body>
+<header th:replace="~{common :: header}"></header>
+<nav th:replace="~{common :: navbar}"></nav>
+
+
+<div class="main">
+
+
+    <div class="cartRow">
+        <div class="columnCart">
+
+            <div id="emptyCartsContent"><span data-th-text="#{text.emptyCart}"></span></div>
+
+            <div class="mainTable" id="tableCartsDiv">
+
+                <div class="cartCaption">
+                    <span data-th-text="#{text.shoppingCart}"></span>
+                    <span id="shoppingCartSize"><th:block th:text="${medicineProducts.size()}"></th:block> <th:block
+                            data-th-text="#{text.items}"></th:block></span>
+                </div>
+
+                <div class="container">
+                    <ul class="responsive-table carts" id="tableCarts">
+                        <li class="table-header">
+                            <div class="col col-1">&#8470;</div>
+                            <div class="col col-2"><span data-th-text="#{table.id}"></span></div>
+                            <div class="col col-3"><span data-th-text="#{table.title}"></span></div>
+                            <div class="col col-4"><span data-th-text="#{table.dosage}"></span></div>
+                            <div class="col col-5"><span data-th-text="#{table.form}"></span></div>
+                            <div class="col col-6"><span data-th-text="#{table.price}"></span></div>
+                            <div class="col col-7"><span data-th-text="#{table.amountInStock}"></span></div>
+                            <div class="col col-8"></div>
+                            <div class="col col-9"></div>
+                        </li>
+                        <li class="table-row" th:each="elem, status : ${medicineProducts}">
+                            <div class="col col-1 rowNumbering"><span th:text="${status.count}"></span></div>
+                            <div class="col col-2"><span th:text="${elem.id}"></span></div>
+                            <div class="col col-3"><span th:text="${elem.medicine.title}"></span></div>
+                            <div class="col col-4"><span th:text="${elem.dosage}"></span></div>
+                            <div class="col col-5"><span th:text="${elem.form}"></span></div>
+                            <div class="col col-6"><span th:text="${elem.price}"></span></div>
+                            <div class="col col-7"><span th:text="${elem.amount}"></span></div>
+                            <div class="col col-8">
+                                <form action="#" method="POST" class="addToOrderForm">
+                                    <input type="hidden" name="medicine_product_id" th:value="${elem.id}"/>
+                                    <input type="hidden" name="price" th:value="${elem.price}"/>
+                                    <input type="hidden" name="amount" th:value="${elem.amount}"/>
+                                    <input type="hidden" name="title" th:value="${elem.medicine.title}"/>
+                                    <button type="submit" class="addToOrderButton">
+                                        <svg class="addToOrderSign" xmlns="http://www.w3.org/2000/svg" width="35"
+                                             height="35" viewBox="0 0 3000 3000" xml:space="preserve">
+		                    				<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                                               transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                                            	<path d="M578.3,928.7h-476c-8.3,0-15.3-7-15.3-15.3V86.6c0-8.3,7-15.3,15.3-15.3c0,0,474.7,0,474.7,0v214.4c0,16.9,13.7,30.6,30.6,30.6h214.4l0,242.4c22.3,3.9,42.5,10.6,60.7,19.6c0.2,0.1,0.4,0.1,0.6,0.2V316.2c0-13.7-4.2-37.6-40.4-87c-21.3-29-50.9-62.9-83.4-95.5C726.8,101.3,693,71.7,664,50.4C614.6,14.2,590.7,10,577,10H102.3c-42.2,0-76.6,34.3-76.6,76.6v826.8c0,42.2,34.4,76.6,76.6,76.6h530.1C610.2,973.1,592.3,952.1,578.3,928.7z M638.2,107.7c22,17,48.5,40.1,77.9,69.5c29.4,29.4,52.4,55.9,69.4,77.9H638.2L638.2,107.7L638.2,107.7z"/>
+                                                <path d="M528.2,712.6H230.7c-11.7,0-21.2-13.7-21.2-30.6c0-16.9,9.5-30.6,21.2-30.6h297.5c11.7,0,21.2,13.7,21.2,30.6C549.4,698.8,539.9,712.6,528.2,712.6z"/>
+                                                <path d="M668.8,498.2H240.1c-16.9,0-30.6-13.7-30.6-30.6c0-16.9,13.7-30.6,30.6-30.6h428.7c16.9,0,30.6,13.7,30.6,30.6C699.5,484.5,685.7,498.2,668.8,498.2z"/>
+                                                <path d="M639.1,633L639.1,633L639.1,633z"/>
+                                                <path d="M770.9,583.2c-112.3,0-203.4,91-203.4,203.4c0,112.3,91,203.4,203.4,203.4c112.3,0,203.4-91,203.4-203.4C974.3,674.3,883.2,583.2,770.9,583.2z M881.5,818.1h-79.1l0,79.1c0,17.4-14.1,31.5-31.5,31.5c-17.5,0-31.5-14.1-31.5-31.5l0-79.1h-79.1c-17.4,0-31.5-14.1-31.5-31.5c0-17.4,14.1-31.5,31.5-31.5h79.1V676c0-17.4,14.1-31.5,31.5-31.5c17.4,0,31.6,14.1,31.5,31.5l0,79.1h79.1c17.4,0,31.5,14.1,31.5,31.5C913.1,804,898.9,818.2,881.5,818.1z"/>
+                                        	</g>
+		                				</svg>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col col-9">
+                                <form th:action="@{/client/cart/rest/{id}/deleteFromCart(id=${elem.id})}" method="POST"
+                                      class="deleteFromCartForm">
+                                    <button type="submit" class="deleteButton">
+                                        <svg class="deleteSign" viewBox="0 0 100 100">
+                                            <line x1="0" y1="0" x2="100" y2="100" stroke-width="10"></line>
+                                            <line x1="0" y1="100" x2="100" y2="0" stroke-width="10"></line>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="columnOrder">
+
+            <div id="emptyOrdersContent" data-th-text="#{text.addProductsToOrder}"></div>
+
+
+            <div class="mainTable" id="tableOrdersDiv">
+
+                <div class="cartCaption">
+                    <span data-th-text="#{text.orders}"></span>
+                    <span id="orderItemsSize">0 <th:block data-th-text="#{text.items}"></th:block></span>
+                </div>
+
+                <div class="container">
+                    <ul class="responsive-table cartOrders" id="tableOrders">
+                        <li class="table-header">
+                            <div class="col col-1">&#8470;</div>
+                            <div class="col col-2" data-th-text="#{table.id}"></div>
+                            <div class="col col-3" data-th-text="#{table.title}"></div>
+                            <div class="col col-4" data-th-text="#{table.quantity}"></div>
+                            <div class="col col-5" data-th-text="#{table.sum}"></div>
+                            <div class="col col-6"></div>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <form id="mainForm" class="cart" method="POST" th:action="@{/client/cart/makeOrder}">
+
+                    <input type="hidden" name="valueRequired" th:value="#{text.valueRequired}">
+                    <input type="hidden" name="valueInvalid" th:value="#{text.valueInvalid}">
+                    <input type="hidden" name="notEnoughFunds" th:value="#{text.notEnoughFunds}">
+                    <input type="hidden" name="prescriptionRequired" th:value="#{text.prescriptionRequired}">
+
+                    <div class="segment cart totalPrice">
+                        <h4 class="cart">
+                            <th:block data-th-text="#{text.totalPrice}"></th:block>
+                            : <span id="totalPriceSpan"></span></h4>
+                    </div>
+
+
+                    <label class="cart">
+                        <div class="segment cart">
+                            <h4 class="cart" data-th-text="#{text.paymentCardNumber}"></h4>
+                            <span class="errorSpan"></span>
+                        </div>
+                        <input class="cart" type="text" placeholder="Payment card number" name="paymentCardNumber"
+                               th:value="${user.personalInfo.paymentCardNumber}"/>
+                    </label>
+                    <label class="cart">
+                        <div class="segment cart">
+                            <h4 class="cart" data-th-text="#{text.contactPhone}"></h4>
+                            <span class="errorSpan"></span>
+                        </div>
+                        <input class="cart" type="text" placeholder="Contact phone" name="contactPhone"
+                               th:value="${user.personalInfo.phone}"/>
+                    </label>
+                    <label class="cart" th:with="address=${user.personalInfo.address}">
+                        <div class="segment cart">
+                            <h4 class="cart" data-th-text="#{text.deliveryAddress}"></h4>
+                            <span class="errorSpan"></span>
+                        </div>
+                        <input class="cart" type="text" placeholder="Delivery address" name="deliveryAddress"
+                               th:value="${address.postcode}+', '+${address.city}+', '+${address.street}+', '+${address.house}+', '+${address.apartment}"/>
+                    </label>
+                    <button id="checkoutButton" class="red" type="button" onclick="validateCart()">
+                        <i class="icon ion-md-lock"></i>
+                        <th:block data-th-text="#{text.checkout}"></th:block>
+                    </button>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<footer th:replace="~{common :: footer}"></footer>
+<script th:src="@{/js/formValidation.js}"></script>
+<script th:src="@{/js/cart.js}"></script>
+</body>
+</html>

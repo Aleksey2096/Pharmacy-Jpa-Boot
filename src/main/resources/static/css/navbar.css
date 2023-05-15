@@ -1,0 +1,109 @@
+nav.primary-navigation {
+    margin: 0 0 1em 0;
+    display: block;
+    padding: 0 0 1em 0;
+    text-align: right;
+    background: var(--black);
+}
+
+.ul-nav {
+    margin: 0;
+}
+
+nav.primary-navigation .ul-nav .li-nav {
+    list-style: none;
+    margin: 0 auto;
+    border-left: 2px solid var(--white);
+    display: inline-block;
+    padding: 0 30px;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+}
+
+nav.primary-navigation .li-nav .a-nav {
+    color: var(--white);
+}
+
+nav.primary-navigation .li-nav .a-nav.special {
+    color: yellow;
+}
+
+nav.primary-navigation .li-nav .a-nav:hover {
+    color: var(--red);
+}
+
+nav.primary-navigation .li-nav.disabled .a-nav {
+    color: var(--red);
+    pointer-events: none;
+}
+
+nav.primary-navigation .li-nav.disabled:hover {
+    cursor: default;
+}
+
+nav.primary-navigation .li-nav:hover {
+    cursor: pointer;
+}
+
+nav.primary-navigation .ul-nav .li-nav .ul-nav {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    padding-left: 0;
+    left: 0;
+    display: none;
+    background: var(--black);
+}
+
+nav.primary-navigation .ul-nav .li-nav:hover > .ul-nav,
+nav.primary-navigation .ul-nav .li-nav .ul-nav:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    min-width: 250px;
+    text-align: left;
+    padding-top: 20px;
+    /*box-shadow: 0 3px 5px -1px var(--red);*/
+}
+
+nav.primary-navigation .ul-nav .li-nav .ul-nav .li-nav {
+    clear: both;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+    border-style: none;
+}
+
+nav.primary-navigation .ul-nav .li-nav .ul-nav .li-nav .a-nav:hover {
+    padding-left: 10px;
+    border-left: 2px solid var(--red);
+    transition: all 0.3s ease;
+}
+
+.a-nav {
+    text-decoration: none;
+}
+
+.a-nav:hover {
+    color: var(--red);
+}
+
+.ul-nav .li-nav .ul-nav .li-nav .a-nav {
+    transition: all 0.5s ease;
+}
+
+.ul-nav > .li-nav:last-child .ul-nav {
+    right: 0;
+    left: auto !important;
+}
+
+.hr-nav {
+    margin: 0 4%;
+    border-color: var(--red);
+    background: var(--black);
+}
+
+.ul-nav-main {
+    margin: 1em 4% 0 4%;
+}

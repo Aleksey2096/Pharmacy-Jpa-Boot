@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.pharmacistEditMedicinePage}"></title>
+    <link rel="stylesheet" th:href="@{/css/shortFormStyle.css}">
+</head>
+<body>
+
+<div class="login-box">
+    <h2 data-th-text="#{text.editMedicine}"></h2>
+
+    <form id="mainForm" th:method="PATCH" th:action="@{/pharmacist/medicines/{id}(id=${medicine.getId()})}"
+          th:object="${medicine}" enctype="multipart/form-data">
+
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" name="previousRequestLink" th:value="${previousRequestLink}">
+
+        <div class="user-box">
+            <input id="titleInput" type="text" name="title" th:field="*{title}">
+            <label for="titleInput">
+                <span data-th-text="#{text.editTitle}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('title')}" data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <select id="isNonprescriptionSelect" name="isNonprescription" th:field="*{isNonprescription}">
+                <option th:value="1" data-th-text="#{text.true}"></option>
+                <option th:value="0" data-th-text="#{text.false}"></option>
+            </select>
+            <label for="isNonprescriptionSelect" data-th-text="#{text.selectIsNonprescription}"></label>
+        </div>
+        <div class="user-box">
+            <select id="producerSelect" name="producer" th:field="*{producer.id}">
+                <option th:each="producerOpt : ${producers}"
+                        th:value="${producerOpt.id}" th:text="${producerOpt.companyName}"></option>
+            </select>
+            <label for="producerSelect" data-th-text="#{text.selectProducer}"></label>
+        </div>
+        <div class="user-box">
+            <input id="approvalDateInput" type="date" name="approvalDate" th:field="*{approvalDate}">
+            <label for="approvalDateInput">
+                <span data-th-text="#{text.editApprovalDate}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('approvalDate')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="medicineImageInput" type="file" name="image" accept="image/*">
+            <label for="medicineImageInput">
+                <span data-th-text="#{text.editMedicineImage}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('medicineImagePath')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+
+
+        <a class="leftButton" href="#" onclick="this.closest('form').submit();" data-th-text="#{text.save}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+        <a class="rightButton" th:href="@{${previousRequestLink}}" data-th-text="#{text.cancel}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.loginPage}"></title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+
+<form method="post" th:action="@{/process_login}">
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="hidden" name="previousRequestLink" value="${requestScope.previousRequestLink}">
+
+
+    <div class="segment1">
+        <h1 data-th-text="#{text.login}"></h1>
+    </div>
+
+    <label>
+        <input type="text" name="username" th:placeholder="#{text.loginPlaceholder}">
+    </label>
+    <label>
+        <input type="password" name="password" th:placeholder="#{text.passwordPlaceholder}">
+    </label>
+    <button class="red" type="submit">
+        <i class="icon ion-md-lock"></i>
+        <span data-th-text="#{text.signin}"></span>
+    </button>
+</form>
+
+
+<div class="segment2" th:if="${param.error}">
+    <h2 style="color: red" data-th-text="#{text.loginError}"></h2>
+</div>
+
+
+<form method="GET" th:action="@{/auth/registration}">
+    <input type="hidden" name="previousRequestLink" value="${requestScope.previousRequestLink}">
+    <div class="segment2">
+        <h1 data-th-text="#{text.newCustomer}"></h1>
+    </div>
+    <button class="red" type="submit">
+        <i class="icon ion-md-lock"></i>
+        <span data-th-text="#{text.createNewAccount}"></span>
+    </button>
+</form>
+
+
+</body>
+</html>

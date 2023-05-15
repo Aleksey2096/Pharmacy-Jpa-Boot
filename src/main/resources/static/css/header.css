@@ -1,0 +1,198 @@
+.header {
+    background: var(--black);
+    color: var(--white);
+    display: flex;
+    min-height: 50px;
+}
+
+.header > div {
+    float: left;
+    padding: 1.5% 0;
+    align-self: center;
+}
+
+.header a {
+    text-decoration: none;
+    font-size: 2.25rem;
+    color: var(--white);
+}
+
+.header > .languageTag {
+    float: left;
+    width: 34%;
+    padding-left: 4%;
+}
+
+.header > .logo {
+    text-align: center;
+    width: 24%;
+}
+
+.header > .loginTag {
+    text-align: right;
+    width: 34%;
+    padding-right: 4%;
+}
+
+.avatar {
+    object-fit: cover;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 3%;
+    margin-right: 6%;
+}
+
+.account {
+    padding-right: 10%;
+}
+
+
+/* login button */
+
+
+.loginButton {
+    border: none;
+    align-items: center;
+    background-color: var(--white);
+    box-sizing: border-box;
+    color: var(--black);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 15px;
+    font-weight: 500;
+    height: 30px;
+    justify-content: center;
+    min-width: 80px;
+    outline: 0;
+    padding: 0;
+    text-align: center;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.loginButton:hover {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.loginForm {
+    display: inline-block;
+}
+
+
+/* language selector */
+
+
+.select-box {
+    position: relative;
+    display: block;
+    width: 6em;
+    font-size: 1.0em;
+    color: var(--white);
+}
+
+.select-box__current {
+    position: relative;
+    cursor: pointer;
+    outline: none;
+}
+
+.select-box__current:focus + .select-box__list {
+    opacity: 1;
+    -webkit-animation-name: none;
+    animation-name: none;
+}
+
+.select-box__current:focus + .select-box__list .select-box__option {
+    cursor: pointer;
+}
+
+.select-box__current:focus .select-box__icon {
+    -webkit-transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.select-box__icon {
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 20px;
+    transition: 0.2s ease;
+}
+
+.select-box__value {
+    display: flex;
+}
+
+.select-box__input {
+    display: none;
+}
+
+.select-box__input:checked + .select-box__input-text {
+    display: block;
+}
+
+.select-box__input-text {
+    display: none;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    background-color: var(--black);
+}
+
+.select-box__list {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    opacity: 0;
+    -webkit-animation-name: HideList;
+    animation-name: HideList;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-timing-function: step-start;
+    animation-timing-function: step-start;
+}
+
+.select-box__option {
+    display: block;
+    padding: 15px;
+    background-color: var(--black);
+}
+
+.select-box__option:hover,
+.select-box__option:focus {
+    color: var(--red);
+    background-color: var(--black);
+}
+
+@-webkit-keyframes HideList {
+    from {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    to {
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+}
+
+@keyframes HideList {
+    from {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    to {
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+}

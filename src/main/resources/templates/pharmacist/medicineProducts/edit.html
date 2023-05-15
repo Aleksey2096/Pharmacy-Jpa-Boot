@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.pharmacistEditMedicineProductPage}"></title>
+    <link rel="stylesheet" th:href="@{/css/shortFormStyle.css}">
+</head>
+<body>
+
+<div class="login-box">
+    <h2 data-th-text="#{text.editMedicineProduct}"></h2>
+
+    <form id="mainForm" th:method="PATCH"
+          th:action="@{/pharmacist/medicineProducts/{id}(id=${medicineProduct.getId()})}"
+          th:object="${medicineProduct}">
+
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" name="previousRequestLink" th:value="${previousRequestLink}">
+
+        <div class="user-box">
+            <input id="dosageInput" type="text" name="dosage" th:field="*{dosage}" class="integerInput">
+            <label for="dosageInput">
+                <span data-th-text="#{text.editDosage}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('dosage')}" data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <select id="formSelect" name="form" th:field="*{form}">
+                <option th:each="formOpt : ${T(by.academy.pharmacy2.entity.Form).values()}"
+                        th:value="${formOpt}" th:text="${formOpt}"></option>
+            </select>
+            <label for="formSelect" data-th-text="#{text.selectForm}"></label>
+        </div>
+        <div class="user-box">
+            <input id="priceInput" type="text" name="price" th:field="*{price}" class="decimalInput">
+            <label for="priceInput">
+                <span data-th-text="#{text.editPrice}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('price')}" data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="amountInput" type="text" name="amount" th:field="*{amount}" class="integerInput">
+            <label for="amountInput">
+                <span data-th-text="#{text.editAmount}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('amount')}" data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <select id="medicineSelect" name="medicine" th:field="*{medicine.id}">
+                <option th:each="medicineOpt : ${medicines}"
+                        th:value="${medicineOpt.id}" th:text="${medicineOpt.title}"></option>
+            </select>
+            <label for="medicineSelect" data-th-text="#{text.selectMedicine}"></label>
+        </div>
+
+
+        <a class="leftButton" href="#" onclick="this.closest('form').submit();" data-th-text="#{text.save}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+        <a class="rightButton" th:href="@{${previousRequestLink}}" data-th-text="#{text.cancel}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+
+
+    </form>
+
+</div>
+
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

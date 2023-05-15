@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.administratorEditUserPage}"></title>
+    <link rel="stylesheet" th:href="@{/css/formStyle.css}">
+</head>
+<body>
+
+<div class="login-box">
+    <h2 data-th-text="#{text.editUser}"></h2>
+
+    <form id="mainForm" th:method="PATCH" th:action="@{/administrator/users/{id}(id=${user.getHealthCareCardNumber()})}"
+          th:object="${user}" enctype="multipart/form-data">
+
+        <input type="hidden" th:field="*{healthCareCardNumber}"/>
+        <input type="hidden" name="previousRequestLink" th:value="${previousRequestLink}">
+
+        <div class="user-box">
+            <input id="loginInput" type="text" name="login" th:field="*{login}">
+            <label for="loginInput">
+                <span data-th-text="#{text.editLogin}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('login')}" data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="passwordInput" type="password" name="password" th:field="*{password}">
+            <label for="passwordInput">
+                <span data-th-text="#{text.editPassword}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('password')}" data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <select id="roleSelect" name="role" th:field="*{role}">
+                <option th:each="roleOpt : ${T(by.academy.pharmacy2.entity.Role).values()}"
+                        th:value="${roleOpt}" th:text="${roleOpt}"></option>
+            </select>
+            <label for="roleSelect" data-th-text="#{text.selectRole}"></label>
+        </div>
+        <div class="user-box">
+            <input id="joinedDateInput" type="date" name="joinedDate" th:field="*{joinedDate}">
+            <label for="joinedDateInput">
+                <span data-th-text="#{text.editJoinedDate}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('joinedDate')}" data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="avatarInput" type="file" name="image" accept="image/*">
+            <label for="avatarInput">
+                <span data-th-text="#{text.editAvatar}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('avatarImagePath')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="nameInput" type="text" name="name" th:field="*{personalInfo.name}">
+            <label for="nameInput">
+                <span data-th-text="#{text.editName}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.name')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="surnameInput" type="text" name="surname" th:field="*{personalInfo.surname}">
+            <label for="surnameInput">
+                <span data-th-text="#{text.editSurname}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.surname')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="birthDateInput" type="date" name="birthDate" th:field="*{personalInfo.birthDate}">
+            <label for="birthDateInput">
+                <span data-th-text="#{text.editBirthDate}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.birthDate')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="phoneInput" type="text" name="phone" th:field="*{personalInfo.phone}">
+            <label for="phoneInput">
+                <span data-th-text="#{text.editPhone}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.phone')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="emailInput" type="text" name="email" th:field="*{personalInfo.email}">
+            <label for="emailInput">
+                <span data-th-text="#{text.editEmail}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.email')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="positionInput" type="text" name="position" th:field="*{personalInfo.position}">
+            <label for="positionInput">
+                <span data-th-text="#{text.editPosition}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.position')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="personalAccountInput" type="text" name="personalAccount"
+                   th:field="*{personalInfo.personalAccount}" class="decimalInput">
+            <label for="personalAccountInput">
+                <span data-th-text="#{text.editPersonalAccount}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.personalAccount')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="paymentCardNumberInput" type="text" name="paymentCardNumber"
+                   th:field="*{personalInfo.paymentCardNumber}" class="integerInput">
+            <label for="paymentCardNumberInput">
+                <span data-th-text="#{text.editPaymentCardNumber}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.paymentCardNumber')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="postcodeInput" type="text" name="postcode" th:field="*{personalInfo.address.postcode}"
+                   class="integerInput">
+            <label for="postcodeInput">
+                <span data-th-text="#{text.editPostcode}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.address.postcode')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="cityInput" type="text" name="city" th:field="*{personalInfo.address.city}">
+            <label for="cityInput">
+                <span data-th-text="#{text.editCity}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.address.city')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="streetInput" type="text" name="street" th:field="*{personalInfo.address.street}">
+            <label for="streetInput">
+                <span data-th-text="#{text.editStreet}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.address.street')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="houseInput" type="text" name="house" th:field="*{personalInfo.address.house}"
+                   class="integerInput">
+            <label for="houseInput">
+                <span data-th-text="#{text.editHouse}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.address.house')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+        <div class="user-box">
+            <input id="apartmentInput" type="text" name="apartment" th:field="*{personalInfo.address.apartment}"
+                   class="integerInput">
+            <label for="apartmentInput">
+                <span data-th-text="#{text.editApartment}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('personalInfo.address.apartment')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+
+
+        <a class="leftButton" href="#" onclick="this.closest('form').submit();" data-th-text="#{text.save}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+        <a class="rightButton" th:href="@{${previousRequestLink}}" data-th-text="#{text.cancel}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+
+
+    </form>
+
+</div>
+
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

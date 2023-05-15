@@ -1,0 +1,450 @@
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.container.narrow {
+    max-width: 1000px;
+}
+
+ul.responsive-table {
+    padding-inline-start: 0;
+}
+
+.responsive-table li {
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.responsive-table .table-header {
+    background-color: #A8A8A8;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.responsive-table .table-row {
+    background-color: #ffffff;
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sortAnchor {
+    color: var(--black);
+    text-decoration: none;
+    margin: 0 0.5em;
+    font-size: 120%;
+}
+
+.sortAnchor:hover {
+    color: var(--red);
+}
+
+.responsive-table .table-search {
+    margin-bottom: 0;
+    position: relative;
+    bottom: -20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    justify-content: center;
+    background-color: #A8A8A8;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.searchInput[type="text"], .searchButton {
+    border: none;
+    padding: 5px 5px;
+    font-size: 14px;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.searchInput:hover, .searchInput:focus {
+    outline: none;
+}
+
+.searchButton:hover {
+    color: var(--red);
+}
+
+.tableAvatar {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+li[data-href], .addToCartButton {
+    cursor: pointer;
+}
+
+.addToCartSign:hover > g[style] {
+    fill: red !important;
+}
+
+.addToCartButton {
+    border: none;
+    background-color: inherit;
+}
+
+@media all and (max-width: 767px) {
+    .responsive-table .table-header {
+        display: none;
+    }
+
+    .responsive-table li {
+        display: block;
+    }
+
+    .responsive-table .col {
+        flex-basis: 100%;
+    }
+
+    .responsive-table .col {
+        display: flex;
+        padding: 10px 0;
+    }
+
+    .responsive-table .col:before {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+    }
+}
+
+
+.responsive-table.users .col-1 {
+    flex-basis: 4%;
+}
+
+.responsive-table.users .col-2 {
+    flex-basis: 20%;
+}
+
+.responsive-table.users .col-3 {
+    flex-basis: 15%;
+}
+
+.responsive-table.users .col-4 {
+    flex-basis: 15%;
+}
+
+.responsive-table.users .col-5 {
+    flex-basis: 15%;
+}
+
+.responsive-table.users .col-6 {
+    flex-basis: 15%;
+}
+
+.responsive-table.users .col-7 {
+    flex-basis: 8%;
+}
+
+.responsive-table.users .col-8 {
+    flex-basis: 8%;
+}
+
+
+.responsive-table.orders .col-1 {
+    flex-basis: 3%;
+}
+
+.responsive-table.orders .col-2 {
+    flex-basis: 7%;
+}
+
+.responsive-table.orders .col-3 {
+    flex-basis: 10%;
+}
+
+.responsive-table.orders .col-4 {
+    flex-basis: 16%;
+}
+
+.responsive-table.orders .col-5 {
+    flex-basis: 16%;
+}
+
+.responsive-table.orders .col-6 {
+    flex-basis: 8%;
+}
+
+.responsive-table.orders .col-7 {
+    flex-basis: 5%;
+}
+
+.responsive-table.orders .col-8 {
+    flex-basis: 15%;
+}
+
+.responsive-table.orders .col-9 {
+    flex-basis: 10%;
+}
+
+.responsive-table.orders .col-10 {
+    flex-basis: 10%;
+}
+
+
+.responsive-table.prescriptionRequests .col-1 {
+    flex-basis: 6%;
+}
+
+.responsive-table.prescriptionRequests .col-2 {
+    flex-basis: 14%;
+}
+
+.responsive-table.prescriptionRequests .col-3 {
+    flex-basis: 25%;
+}
+
+.responsive-table.prescriptionRequests .col-4 {
+    flex-basis: 35%;
+}
+
+.responsive-table.prescriptionRequests .col-5 {
+    flex-basis: 20%;
+}
+
+
+.responsive-table.producers .col-1 {
+    flex-basis: 4%;
+}
+
+.responsive-table.producers .col-2 {
+    flex-basis: 14%;
+}
+
+.responsive-table.producers .col-3 {
+    flex-basis: 20%;
+}
+
+.responsive-table.producers .col-4 {
+    flex-basis: 23%;
+}
+
+.responsive-table.producers .col-5 {
+    flex-basis: 23%;
+}
+
+.responsive-table.producers .col-6 {
+    flex-basis: 8%;
+}
+
+.responsive-table.producers .col-7 {
+    flex-basis: 8%;
+}
+
+
+.responsive-table.medicines .col-1 {
+    flex-basis: 4%;
+}
+
+.responsive-table.medicines .col-2 {
+    flex-basis: 12%;
+}
+
+.responsive-table.medicines .col-3 {
+    flex-basis: 16%;
+}
+
+.responsive-table.medicines .col-4 {
+    flex-basis: 21%;
+}
+
+.responsive-table.medicines .col-5 {
+    flex-basis: 16%;
+}
+
+.responsive-table.medicines .col-6 {
+    flex-basis: 15%;
+}
+
+.responsive-table.medicines .col-7 {
+    flex-basis: 8%;
+}
+
+.responsive-table.medicines .col-8 {
+    flex-basis: 8%;
+}
+
+
+.responsive-table.medicineProducts .col-1 {
+    flex-basis: 4%;
+}
+
+.responsive-table.medicineProducts .col-2 {
+    flex-basis: 11%;
+}
+
+.responsive-table.medicineProducts .col-3 {
+    flex-basis: 18%;
+}
+
+.responsive-table.medicineProducts .col-4 {
+    flex-basis: 23%;
+}
+
+.responsive-table.medicineProducts .col-5 {
+    flex-basis: 14%;
+}
+
+.responsive-table.medicineProducts .col-6 {
+    flex-basis: 15%;
+}
+
+.responsive-table.medicineProducts .col-7 {
+    flex-basis: 8%;
+}
+
+.responsive-table.medicineProducts .col-8 {
+    flex-basis: 8%;
+}
+
+
+.responsive-table.processPrescriptionRequests .col-1 {
+    flex-basis: 4%;
+}
+
+.responsive-table.processPrescriptionRequests .col-2 {
+    flex-basis: 15%;
+}
+
+.responsive-table.processPrescriptionRequests .col-3 {
+    flex-basis: 15%;
+}
+
+.responsive-table.processPrescriptionRequests .col-4 {
+    flex-basis: 30%;
+}
+
+.responsive-table.processPrescriptionRequests .col-5 {
+    flex-basis: 20%;
+}
+
+.responsive-table.processPrescriptionRequests .col-6 {
+    flex-basis: 8%;
+}
+
+.responsive-table.processPrescriptionRequests .col-7 {
+    flex-basis: 8%;
+}
+
+
+.responsive-table.prescriptions .col-1 {
+    flex-basis: 6%;
+}
+
+.responsive-table.prescriptions .col-2 {
+    flex-basis: 20%;
+}
+
+.responsive-table.prescriptions .col-3 {
+    flex-basis: 34%;
+}
+
+.responsive-table.prescriptions .col-4 {
+    flex-basis: 20%;
+}
+
+.responsive-table.prescriptions .col-5 {
+    flex-basis: 20%;
+}
+
+
+.responsive-table.userOrders .col-1 {
+    flex-basis: 1%;
+}
+
+.responsive-table.userOrders .col-2 {
+    flex-basis: 6%;
+}
+
+.responsive-table.userOrders .col-3 {
+    flex-basis: 14%;
+}
+
+.responsive-table.userOrders .col-4 {
+    flex-basis: 16%;
+}
+
+.responsive-table.userOrders .col-5 {
+    flex-basis: 10%;
+}
+
+.responsive-table.userOrders .col-6 {
+    flex-basis: 8%;
+}
+
+.responsive-table.userOrders .col-7 {
+    flex-basis: 17%;
+}
+
+.responsive-table.userOrders .col-8 {
+    flex-basis: 14%;
+}
+
+.responsive-table.userOrders .col-9 {
+    flex-basis: 14%;
+}
+
+
+.responsive-table.userMedicines .col-1 {
+    flex-basis: 4%;
+}
+
+.responsive-table.userMedicines .col-2 {
+    flex-basis: 12%;
+}
+
+.responsive-table.userMedicines .col-3 {
+    flex-basis: 14%;
+}
+
+.responsive-table.userMedicines .col-4 {
+    flex-basis: 30%;
+}
+
+.responsive-table.userMedicines .col-5 {
+    flex-basis: 23%;
+}
+
+.responsive-table.userMedicines .col-6 {
+    flex-basis: 17%;
+}
+
+
+.responsive-table.userMedicineProducts .col-1 {
+    flex-basis: 4%;
+}
+
+.responsive-table.userMedicineProducts .col-2 {
+    flex-basis: 13%;
+}
+
+.responsive-table.userMedicineProducts .col-3 {
+    flex-basis: 20%;
+}
+
+.responsive-table.userMedicineProducts .col-4 {
+    flex-basis: 25%;
+}
+
+.responsive-table.userMedicineProducts .col-5 {
+    flex-basis: 16%;
+}
+
+.responsive-table.userMedicineProducts .col-6 {
+    flex-basis: 15%;
+}
+
+.responsive-table.userMedicineProducts .col-7 {
+    flex-basis: 8%;
+}

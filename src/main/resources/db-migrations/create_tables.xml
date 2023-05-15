@@ -1,0 +1,324 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Aleksey" id="1681739540885-1">
+        <createTable tableName="addresses">
+            <column name="health_care_card_number" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="postcode" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="house" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="apartment" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-2">
+        <createTable tableName="carts">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="health_care_card_number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="medicine_product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cart_order" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-3">
+        <createTable tableName="medicine_products">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="medicine_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dosage" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="form" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DECIMAL(6, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-4">
+        <createTable tableName="medicines">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_nonprescription" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="producer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="approval_date" type="date"/>
+            <column name="medicine_image_path" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-5">
+        <createTable tableName="orders">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="health_care_card_number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="medicine_product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DECIMAL(6, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_card_number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_phone" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-6">
+        <createTable tableName="personal_info">
+            <column name="health_care_card_number" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="surname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="position" type="VARCHAR(255)"/>
+            <column name="personal_account" type="DECIMAL(10, 2)"/>
+            <column name="payment_card_number" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-7">
+        <createTable tableName="prescription_requests">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="prescription_scan_path" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="upload_date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prescription_request_status" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="health_care_card_number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-8">
+        <createTable tableName="prescriptions">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="health_care_card_number" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="medicine_product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-9">
+        <createTable tableName="producers">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="company_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_code" type="ENUM('AU', 'AT', 'BE', 'CA', 'HR', 'JP', 'US', 'PL', 'KR', 'SE')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-10">
+        <createTable tableName="users">
+            <column name="health_care_card_number" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="CHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_joined" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar_image_path" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-11">
+        <addUniqueConstraint columnNames="title, is_nonprescription, producer_id" constraintName="UC_medicines"
+                             tableName="medicines"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-12">
+        <addUniqueConstraint columnNames="health_care_card_number, medicine_product_id"
+                             constraintName="UC_users_storages" tableName="carts"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-13">
+        <createIndex indexName="FK_carts_medicine_products" tableName="carts">
+            <column name="medicine_product_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-14">
+        <createIndex indexName="FK_medicine_products_medicines" tableName="medicine_products">
+            <column name="medicine_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-15">
+        <createIndex indexName="FK_medicines_producers" tableName="medicines">
+            <column name="producer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-16">
+        <createIndex indexName="FK_orders_medicine_products" tableName="orders">
+            <column name="medicine_product_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-17">
+        <createIndex indexName="FK_orders_users" tableName="orders">
+            <column name="health_care_card_number"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-18">
+        <createIndex indexName="FK_prescription_requests_users" tableName="prescription_requests">
+            <column name="health_care_card_number"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-19">
+        <createIndex indexName="FK_prescriptions_medicine_products" tableName="prescriptions">
+            <column name="medicine_product_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-20">
+        <createIndex indexName="FK_prescriptions_users" tableName="prescriptions">
+            <column name="health_care_card_number"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-21">
+        <addForeignKeyConstraint baseColumnNames="medicine_product_id" baseTableName="carts"
+                                 constraintName="FK_carts_medicine_products" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="medicine_products" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-22">
+        <addForeignKeyConstraint baseColumnNames="health_care_card_number" baseTableName="carts"
+                                 constraintName="FK_carts_users" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="health_care_card_number"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-23">
+        <addForeignKeyConstraint baseColumnNames="medicine_id" baseTableName="medicine_products"
+                                 constraintName="FK_medicine_products_medicines" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="medicines" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-24">
+        <addForeignKeyConstraint baseColumnNames="producer_id" baseTableName="medicines"
+                                 constraintName="FK_medicines_producers" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="id"
+                                 referencedTableName="producers" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-25">
+        <addForeignKeyConstraint baseColumnNames="medicine_product_id" baseTableName="orders"
+                                 constraintName="FK_orders_medicine_products" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="medicine_products" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-26">
+        <addForeignKeyConstraint baseColumnNames="health_care_card_number" baseTableName="orders"
+                                 constraintName="FK_orders_users" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="health_care_card_number"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-27">
+        <addForeignKeyConstraint baseColumnNames="health_care_card_number" baseTableName="personal_info"
+                                 constraintName="FK_personal_info_addresses" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE"
+                                 referencedColumnNames="health_care_card_number" referencedTableName="addresses"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-28">
+        <addForeignKeyConstraint baseColumnNames="health_care_card_number" baseTableName="prescription_requests"
+                                 constraintName="FK_prescription_requests_users" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE"
+                                 referencedColumnNames="health_care_card_number" referencedTableName="users"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-29">
+        <addForeignKeyConstraint baseColumnNames="medicine_product_id" baseTableName="prescriptions"
+                                 constraintName="FK_prescriptions_medicine_products" deferrable="false"
+                                 initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="medicine_products" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-30">
+        <addForeignKeyConstraint baseColumnNames="health_care_card_number" baseTableName="prescriptions"
+                                 constraintName="FK_prescriptions_users" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="health_care_card_number"
+                                 referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Aleksey" id="1681739540885-31">
+        <addForeignKeyConstraint baseColumnNames="health_care_card_number" baseTableName="users"
+                                 constraintName="FK_users_personal_info" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="health_care_card_number"
+                                 referencedTableName="personal_info" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

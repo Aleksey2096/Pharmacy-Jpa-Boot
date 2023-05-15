@@ -1,0 +1,69 @@
+:root {
+    --red: #CF0A0A;
+    --black: #000000;
+    --white: #e5e4e2;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: var(--white);
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+}
+
+
+/* add button */
+
+
+.addForm {
+    padding: 16px;
+    width: 320px;
+    margin: 0 auto;
+}
+
+button.red {
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    border-radius: 320px;
+    padding: 16px;
+    background-color: #EBECF0;
+    text-shadow: 1px 1px 0 #FFF;
+}
+
+button.red {
+    color: #61677C;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button.red:hover {
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+}
+
+button.red:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+}
+
+button.red .icon {
+    margin-right: 8px;
+}
+
+button.red.unit .icon {
+    margin-right: 0;
+}
+
+button.red {
+    display: block;
+    width: 100%;
+    color: #AE1100;
+}

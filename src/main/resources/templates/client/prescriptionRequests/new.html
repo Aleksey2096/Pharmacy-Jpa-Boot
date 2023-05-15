@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.uploadNewPrescriptionRequestScanPage}"></title>
+    <link rel="stylesheet" th:href="@{/css/shortFormStyle.css}">
+</head>
+<body>
+
+<div class="login-box">
+    <h2 data-th-text="#{text.uploadPrescriptionRequestScan}"></h2>
+
+    <form id="mainForm" th:method="POST" th:action="@{/client/prescriptionRequests}" th:object="${prescriptionRequest}"
+          enctype="multipart/form-data">
+
+        <input type="hidden" name="previousRequestLink" th:value="${previousRequestLink}">
+
+        <div class="user-box">
+            <input id="avatarInput" type="file" name="image" accept="image/*">
+            <label for="avatarInput">
+                <span data-th-text="#{text.enterScan}"></span>
+                <span class="errorSpan" th:each="err : ${#fields.errors('prescriptionScanPath')}"
+                      data-th-text="#{${err}}"></span>
+            </label>
+        </div>
+
+
+        <a class="leftButton" href="#" onclick="this.closest('form').submit();" data-th-text="#{text.save}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+        <a class="rightButton" th:href="@{${previousRequestLink}}" data-th-text="#{text.cancel}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+
+
+    </form>
+
+</div>
+
+</body>
+</html>

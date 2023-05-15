@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title data-th-text="#{page.clientMedicineProductsPage}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/mainTable.css}">
+    <link rel="stylesheet" th:href="@{/css/data-pagination.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+</head>
+<body>
+<header th:replace="~{common :: header}"></header>
+<nav th:replace="~{common :: navbar}"></nav>
+
+
+<div class="main">
+
+
+    <div class="mainTable">
+        <div class="container narrow">
+            <ul class="responsive-table userMedicineProducts">
+                <li class="table-search">
+                    <form method="get"
+                          th:action="@{/client/medicineProducts/{medicineId}/page/1(medicineId=${medicineId})}">
+                        <input type="hidden" name="orderField" th:value="${orderField}">
+                        <input type="hidden" name="orderType" th:value="${orderType}">
+                        <input type="hidden" name="recordsPerPage" th:value="${pagination.recordsPerPage}">
+                        <input class="searchInput" type="text" name="searchValue">
+                        <button class="searchButton" type="submit">
+                            <span data-th-text="#{text.search}"></span>
+                        </button>
+                    </form>
+                </li>
+                <li class="table-header">
+                    <div class="col col-1">&#8470;</div>
+                    <div class="col col-2">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='id', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.id}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='id', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-3">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='dosage', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.dosage}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='dosage', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-4">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='form', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.form}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='form', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-5">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='price', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.price}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='price', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-6">
+                    <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='amount', orderType='asc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∧</a>
+                    </span>
+                        <span data-th-text="#{table.amount}"></span>
+                        <span class="sortSpan">
+                        <a class="sortAnchor"
+                           th:href="@{/client/medicineProducts/{medicineId}/page/{currentPage}(medicineId=${medicineId}, currentPage=${pagination.currentPage}, orderField='amount', orderType='desc', searchValue=${searchValue}, recordsPerPage=${pagination.recordsPerPage})}">∨</a>
+                    </span>
+                    </div>
+                    <div class="col col-7"></div>
+                </li>
+                <li class="table-row" th:each="elem, status : ${pagination.records}"
+                    th:with="previousRecordsNum=${(pagination.currentPage - 1) * pagination.recordsPerPage}">
+                    <div class="col col-1"><span th:text="${previousRecordsNum+status.count}"></span></div>
+                    <div class="col col-2"><span th:text="${elem.id}"></span></div>
+                    <div class="col col-3"><span th:text="${elem.dosage}"></span></div>
+                    <div class="col col-4"><span th:text="${elem.form}"></span></div>
+                    <div class="col col-5"><span th:text="${elem.price}"></span></div>
+                    <div class="col col-6"><span th:text="${elem.amount}"></span></div>
+                    <div class="col col-7">
+                        <form class="addToCartForm" method="POST"
+                              th:action="@{/client/cart/rest/{id}/addToCart(id=${elem.id})}">
+                            <input sec:authorize="isAuthenticated()" type="hidden" name="isLoggedIn" value="true">
+                            <input type="hidden" name="previousRequestLink"
+                                   th:value="${request.servletPath+'?'+request.queryString}"/>
+                            <button type="submit" class="addToCartButton">
+                                <svg class="addToCartSign" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                     viewBox="0 0 256 256" xml:space="preserve">
+	                            	<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+                                       transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+	                                	<path d="M 72.975 58.994 H 31.855 c -1.539 0 -2.897 -1.005 -3.347 -2.477 L 15.199 13.006 H 3.5 c -1.933 0 -3.5 -1.567 -3.5 -3.5 s 1.567 -3.5 3.5 -3.5 h 14.289 c 1.539 0 2.897 1.005 3.347 2.476 l 13.309 43.512 h 36.204 l 10.585 -25.191 h -6.021 c -1.933 0 -3.5 -1.567 -3.5 -3.5 s 1.567 -3.5 3.5 -3.5 H 86.5 c 1.172 0 2.267 0.587 2.915 1.563 s 0.766 2.212 0.312 3.293 L 76.201 56.85 C 75.655 58.149 74.384 58.994 72.975 58.994 z"
+                                              style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;"
+                                              transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+                                        <circle cx="28.88" cy="74.33" r="6.16"
+                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;"
+                                                transform="  matrix(1 0 0 1 0 0) "/>
+                                        <circle cx="74.59" cy="74.33" r="6.16"
+                                                style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;"
+                                                transform="  matrix(1 0 0 1 0 0) "/>
+                                        <path d="M 62.278 19.546 H 52.237 V 9.506 c 0 -1.933 -1.567 -3.5 -3.5 -3.5 s -3.5 1.567 -3.5 3.5 v 10.04 h -10.04 c -1.933 0 -3.5 1.567 -3.5 3.5 s 1.567 3.5 3.5 3.5 h 10.04 v 10.04 c 0 1.933 1.567 3.5 3.5 3.5 s 3.5 -1.567 3.5 -3.5 v -10.04 h 10.041 c 1.933 0 3.5 -1.567 3.5 -3.5 S 64.211 19.546 62.278 19.546 z"
+                                              style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;"
+                                              transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+	                            	</g>
+								</svg>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <th:block th:if="${pagination.pagesNum > 0}">
+        <nav th:replace="~{common :: pagination(${request.contextPath}+'/client/medicineProducts/'+${medicineId})}"></nav>
+    </th:block>
+    <th:block th:if="${pagination.pagesNum == 0}">
+        <h3 data-th-text="#{text.negativeSearchResult}"></h3>
+        <h4 data-th-text="#{text.suggestions}"></h4>
+        <h4 data-th-text="#{text.searchSuggestion1}"></h4>
+        <h4 data-th-text="#{text.searchSuggestion2}"></h4>
+        <h4 data-th-text="#{text.searchSuggestion3}"></h4>
+    </th:block>
+
+
+</div>
+<footer th:replace="~{common :: footer}"></footer>
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

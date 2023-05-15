@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="#{page.error}"></title>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+</head>
+<body>
+
+
+<div class="center">
+    <h1>403</h1>
+    <p data-th-text="#{text.accessRestricted}"></p>
+    <h3 data-th-text="#{text.checkWithAdmin}"></h3>
+
+    <a th:href="@{/}" data-th-text="#{text.backToHome}"></a>
+</div>
+
+
+</body>
+</html>
