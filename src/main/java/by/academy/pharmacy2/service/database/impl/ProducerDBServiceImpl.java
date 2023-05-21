@@ -8,10 +8,13 @@ import by.academy.pharmacy2.service.database.BaseDBService;
 import by.academy.pharmacy2.service.database.ProducerDBService;
 import by.academy.pharmacy2.service.database.SpecificationFields;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,9 +34,10 @@ public class ProducerDBServiceImpl extends BaseDBService<ProducerEntity, Produce
                                                        final String orderField,
                                                        final String orderType,
                                                        final String searchValue) {
-        Specification<ProducerEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue, SpecificationFields.PRODUCER.getFields())
-                : null;
+        Specification<ProducerEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x, SpecificationFields.PRODUCER.getFields()))
+                .orElse(null);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 }

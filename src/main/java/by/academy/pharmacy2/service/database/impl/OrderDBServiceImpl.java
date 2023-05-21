@@ -10,10 +10,13 @@ import by.academy.pharmacy2.service.database.BaseDBService;
 import by.academy.pharmacy2.service.database.OrderDBService;
 import by.academy.pharmacy2.service.database.SpecificationFields;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static by.academy.pharmacy2.entity.Constant.USER;
 
@@ -33,9 +36,10 @@ public class OrderDBServiceImpl extends BaseDBService<OrderEntity, OrderDTO, Lon
     public PaginationObject<OrderDTO> readPaginated(final int currentPage, final int recordsPerPage,
                                                     final String orderField, final String orderType,
                                                     final String searchValue) {
-        Specification<OrderEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue, SpecificationFields.ORDER.getFields())
-                : null;
+        Specification<OrderEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x, SpecificationFields.ORDER.getFields()))
+                .orElse(null);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 
@@ -49,10 +53,11 @@ public class OrderDBServiceImpl extends BaseDBService<OrderEntity, OrderDTO, Lon
                                                           final UserDTO userDTO) {
         Specification<OrderEntity> userSpec = createSpecification(USER,
                 getModelMapper().map(userDTO, UserEntity.class));
-        Specification<OrderEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue, SpecificationFields.ORDER.getFields()).and(
-                userSpec)
-                : userSpec;
+        Specification<OrderEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x, SpecificationFields.ORDER.getFields()).and(
+                        userSpec))
+                .orElse(userSpec);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 }

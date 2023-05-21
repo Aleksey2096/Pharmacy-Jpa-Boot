@@ -9,10 +9,13 @@ import by.academy.pharmacy2.service.database.BaseDBService;
 import by.academy.pharmacy2.service.database.MedicineDBService;
 import by.academy.pharmacy2.service.database.SpecificationFields;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +36,10 @@ public class MedicineDBServiceImpl extends BaseDBService<MedicineEntity, Medicin
                                                        final String orderField,
                                                        final String orderType,
                                                        final String searchValue) {
-        Specification<MedicineEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue, SpecificationFields.MEDICINE.getFields())
-                : null;
+        Specification<MedicineEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x, SpecificationFields.MEDICINE.getFields()))
+                .orElse(null);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 }

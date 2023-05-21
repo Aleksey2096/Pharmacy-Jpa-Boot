@@ -10,6 +10,7 @@ import by.academy.pharmacy2.service.database.BaseDBService;
 import by.academy.pharmacy2.service.database.SpecificationFields;
 import by.academy.pharmacy2.service.database.UserDBService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -67,9 +69,10 @@ public class UserDBServiceImpl extends BaseDBService<UserEntity, UserDTO, Long>
     public PaginationObject<UserDTO> readPaginated(final int currentPage, final int recordsPerPage,
                                                    final String orderField, final String orderType,
                                                    final String searchValue) {
-        Specification<UserEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue, SpecificationFields.USER.getFields())
-                : null;
+        Specification<UserEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x, SpecificationFields.USER.getFields()))
+                .orElse(null);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 

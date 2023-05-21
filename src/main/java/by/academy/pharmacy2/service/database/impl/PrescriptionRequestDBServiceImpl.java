@@ -12,6 +12,7 @@ import by.academy.pharmacy2.service.database.BaseDBService;
 import by.academy.pharmacy2.service.database.PrescriptionRequestDBService;
 import by.academy.pharmacy2.service.database.SpecificationFields;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static by.academy.pharmacy2.entity.Constant.PRESCRIPTION_REQUEST_STATUS;
 import static by.academy.pharmacy2.entity.Constant.USER;
@@ -55,10 +57,11 @@ public class PrescriptionRequestDBServiceImpl
                                                                   final String orderField,
                                                                   final String orderType,
                                                                   final String searchValue) {
-        Specification<PrescriptionRequestEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue,
-                SpecificationFields.PRESCRIPTION_REQUEST.getFields())
-                : null;
+        Specification<PrescriptionRequestEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x,
+                        SpecificationFields.PRESCRIPTION_REQUEST.getFields()))
+                .orElse(null);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 
@@ -72,10 +75,11 @@ public class PrescriptionRequestDBServiceImpl
                                                                           final PrescriptionRequestStatus status) {
         Specification<PrescriptionRequestEntity> statusSpec = createSpecification(
                 PRESCRIPTION_REQUEST_STATUS, status);
-        Specification<PrescriptionRequestEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue,
-                SpecificationFields.PRESCRIPTION_REQUEST.getFields()).and(statusSpec)
-                : statusSpec;
+        Specification<PrescriptionRequestEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x,
+                        SpecificationFields.PRESCRIPTION_REQUEST.getFields()).and(statusSpec))
+                .orElse(statusSpec);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 
@@ -89,10 +93,11 @@ public class PrescriptionRequestDBServiceImpl
                                                                         final UserDTO userDTO) {
         Specification<PrescriptionRequestEntity> userSpec = createSpecification(USER,
                 getModelMapper().map(userDTO, UserEntity.class));
-        Specification<PrescriptionRequestEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue,
-                SpecificationFields.PRESCRIPTION_REQUEST.getFields()).and(userSpec)
-                : userSpec;
+        Specification<PrescriptionRequestEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x,
+                        SpecificationFields.PRESCRIPTION_REQUEST.getFields()).and(userSpec))
+                .orElse(userSpec);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 }

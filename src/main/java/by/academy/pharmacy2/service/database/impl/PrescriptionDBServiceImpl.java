@@ -10,12 +10,14 @@ import by.academy.pharmacy2.service.database.BaseDBService;
 import by.academy.pharmacy2.service.database.PrescriptionDBService;
 import by.academy.pharmacy2.service.database.SpecificationFields;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static by.academy.pharmacy2.entity.Constant.USER;
@@ -41,10 +43,11 @@ public class PrescriptionDBServiceImpl extends
                                                                  final UserDTO userDTO) {
         Specification<PrescriptionEntity> userSpec = createSpecification(USER,
                 getModelMapper().map(userDTO, UserEntity.class));
-        Specification<PrescriptionEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue,
-                SpecificationFields.PRESCRIPTION.getFields()).and(userSpec)
-                : userSpec;
+        Specification<PrescriptionEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x,
+                        SpecificationFields.PRESCRIPTION.getFields()).and(userSpec))
+                .orElse(userSpec);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 

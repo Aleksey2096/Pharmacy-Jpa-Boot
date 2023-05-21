@@ -11,6 +11,7 @@ import by.academy.pharmacy2.service.database.BaseDBService;
 import by.academy.pharmacy2.service.database.MedicineProductDBService;
 import by.academy.pharmacy2.service.database.SpecificationFields;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static by.academy.pharmacy2.entity.Constant.MEDICINE;
@@ -43,10 +45,11 @@ public class MedicineProductDBServiceImpl
                                                               final String orderField,
                                                               final String orderType,
                                                               final String searchValue) {
-        Specification<MedicineProductEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue,
-                SpecificationFields.MEDICINE_PRODUCT.getFields())
-                : null;
+        Specification<MedicineProductEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x,
+                        SpecificationFields.MEDICINE_PRODUCT.getFields()))
+                .orElse(null);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 
@@ -60,10 +63,11 @@ public class MedicineProductDBServiceImpl
                                                                         final Long medicineId) {
         Specification<MedicineProductEntity> medicineSpec = createSpecification(MEDICINE,
                 medicineRepository.findById(medicineId).orElse(null));
-        Specification<MedicineProductEntity> spec = !searchValue.isBlank()
-                ? createSearchSpecification(searchValue,
-                SpecificationFields.MEDICINE_PRODUCT.getFields()).and(medicineSpec)
-                : medicineSpec;
+        Specification<MedicineProductEntity> spec = Optional.ofNullable(searchValue)
+                .filter(StringUtils::isNotBlank)
+                .map(x -> createSearchSpecification(x,
+                        SpecificationFields.MEDICINE_PRODUCT.getFields()).and(medicineSpec))
+                .orElse(medicineSpec);
         return readPaginated(currentPage, recordsPerPage, orderField, orderType, spec);
     }
 

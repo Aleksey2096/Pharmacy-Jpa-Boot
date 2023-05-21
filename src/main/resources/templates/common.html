@@ -28,10 +28,6 @@
                     <label class="select-box__option" aria-hidden="aria-hidden"
                            th:attr="onclick=|document.location='${request.requestURI+'?locale=en_US&'+queryString}'|">English</label>
                 </li>
-                <li>
-                    <label class="select-box__option" aria-hidden="aria-hidden"
-                           th:attr="onclick=|document.location='${request.requestURI+'?locale=ru_RU&'+queryString}'|">Русский</label>
-                </li>
             </ul>
         </div>
         <div class="select-box" th:case="'es_ES'">
@@ -46,33 +42,6 @@
                 <li>
                     <label class="select-box__option" aria-hidden="aria-hidden"
                            th:attr="onclick=|document.location='${request.requestURI+'?locale=de_DE&'+queryString}'|">Deutsch</label>
-                </li>
-                <li>
-                    <label class="select-box__option" aria-hidden="aria-hidden"
-                           th:attr="onclick=|document.location='${request.requestURI+'?locale=en_US&'+queryString}'|">English</label>
-                </li>
-                <li>
-                    <label class="select-box__option" aria-hidden="aria-hidden"
-                           th:attr="onclick=|document.location='${request.requestURI+'?locale=ru_RU&'+queryString}'|">Русский</label>
-                </li>
-            </ul>
-        </div>
-        <div class="select-box" th:case="'ru_RU'">
-            <div class="select-box__current" tabindex="1">
-                <div class="select-box__value">
-                    <input class="select-box__input" type="radio" checked="checked"/>
-                    <p class="select-box__input-text">RU</p>
-                </div>
-                <img class="select-box__icon" th:src="@{/img/img_295694.svg}" alt="Arrow Icon" aria-hidden="true"/>
-            </div>
-            <ul class="select-box__list">
-                <li>
-                    <label class="select-box__option" aria-hidden="aria-hidden"
-                           th:attr="onclick=|document.location='${request.requestURI+'?locale=de_DE&'+queryString}'|">Deutsch</label>
-                </li>
-                <li>
-                    <label class="select-box__option" aria-hidden="aria-hidden"
-                           th:attr="onclick=|document.location='${request.requestURI+'?locale=es_ES&'+queryString}'|">Español</label>
                 </li>
                 <li>
                     <label class="select-box__option" aria-hidden="aria-hidden"
@@ -97,10 +66,6 @@
                     <label class="select-box__option" aria-hidden="aria-hidden"
                            th:attr="onclick=|document.location='${request.requestURI+'?locale=es_ES&'+queryString}'|">Español</label>
                 </li>
-                <li>
-                    <label class="select-box__option" aria-hidden="aria-hidden"
-                           th:attr="onclick=|document.location='${request.requestURI+'?locale=ru_RU&'+queryString}'|">Русский</label>
-                </li>
             </ul>
         </div>
 
@@ -121,7 +86,7 @@
             </form>
         </div>
         <div sec:authorize="isAuthenticated()">
-            <span class="account"
+        	<span class="account"
                   th:text="${#authentication.principal.userDTO.personalInfo.personalAccount + '&#36;'}"></span>
             <span data-th-text="#{text.welcome}"></span>&nbsp;<span sec:authentication="name"></span>
             <img class="avatar" th:src="@{${#authentication.principal.userDTO.avatarImagePath}}">
